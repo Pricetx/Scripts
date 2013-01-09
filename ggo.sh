@@ -211,7 +211,7 @@ updateGGONotRunning() {
 advert() {
         echo "Starting Advertes."
         echo "NOTE: This script takes 30 minutes to run. It is recommended to run this as a cron job."
-        sendCommand "say Visit our website: www.gravitygunonly.com"
+        sendCommand "say [NOTICE] Visit our website: www.gravitygunonly.com"
         sleep 180
         sendCommand "say [NOTICE] Bored of this map? type rtv in the chatbox."
         sleep 180
