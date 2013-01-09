@@ -109,7 +109,6 @@ STARTCMD="${SCREENCMD} ${BIN} ${ARGS}"
 ####     UPDATE PARAMETERS    ####
 #### DO NOT EDIT THIS SECTION ####
 
-# Update
 UPDATEARGS="-command update -game ${GAME} -dir ."
 UPDATECMD="${SCREENCMD} ${UPDATEBIN} ${UPDATEARGS}"
 
