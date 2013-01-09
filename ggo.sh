@@ -14,7 +14,8 @@
 #								    #
 #####################################################################
 
-#### IN-GAME SETTINGS ####
+####    INGAME SETTINGS    ####
+#### EDIT THESE PARAMETERS ####
 
 # Sets the game to Half Life 2: Deathmatch, in normal use, DO NOT CHANGE THIS.
 GAME="hl2mp"
@@ -67,7 +68,7 @@ RTDSC=""
 ######################################################################
 
 
-####   LIST OF FILES TO BACKUP   ####
+####   LIST OF FILES TO RESTORE  ####
 #### TO AVOID UPDATE OVERWRITING ####
 
 # Set this to the location you want to back up files to, so as not
