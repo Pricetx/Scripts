@@ -28,6 +28,10 @@ MAXPLAYERS="16"
 # Set this to the port that the server will run on.
 PORT="27015"
 
+# If you have multiple IPs and want to bind to one, enter it here.
+# Otherwise, leave blank.
+IP=""
+
 
 #######################################################################
 
@@ -95,7 +99,7 @@ PID=$(pgrep -u $(whoami) -f "session=${NAME}" )
 INFO="${GAME} screen session '${NAME}'"
 
 SCREENCMD="screen -dmS ${NAME}"
-ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} +map ${MAP}"
+ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} +map ${MAP} +ip ${IP}"
 STARTCMD="${SCREENCMD} ${BIN} ${ARGS}"
 
 
