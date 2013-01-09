@@ -64,6 +64,15 @@ UPDATEBIN="./steam"
 # Then set that value here, otherwise, leave the field blank.
 RTDSC=""
 
+# *OPTIONAL* If you have a web server on your server, enter a directory
+# To store demo files for public download.
+DEMODIR="/home/ggo/web/hl2mp/demos/"
+
+# *OPTIONAL* If you are using a web server as shown above, enter the age
+# in minutes you want to store demo files on your web server, e.g 10080 
+# is 1 week.
+DEMOAGE="10080"
+
 
 ######################################################################
 
@@ -236,6 +245,16 @@ advert() {
         sendCommand "say [NOTICE] type motd to see the Message of the Day."
 }
 
+demo() {
+	echo "Moving old demos to web server."
+	#Moves all .dem files to the web server if they're older than 2 hours (to avoid cutting a demo short)
+	find ${DIR}/hl2mp/ -iname "*.dem" -mmin +120 -exec chmod 664 {} \; -exec mv {} ${DEMODIR} \;
+
+	#Delete all archived demo files older than period specified
+	find ${DEMODIR} -name "*.dem" -mmin +${DEMOAGE} -exec rm {} \;
+	echo "Move complete."
+}
+
 
 sendCommand() {
 	local command=$(printf "$@\r")
@@ -281,8 +300,11 @@ case "$1" in
                         printf "${INFO} is not running.\n"
                 fi
         ;;
+	demo)
+		demo
+	;;
 	*)
-		printf "Usage: $0 {start|stop|restart|update|advert}\n"
+		printf "Usage: $0 {start|stop|restart|update|advert|demo}\n"
 		exit 2
 	;;
 esac
