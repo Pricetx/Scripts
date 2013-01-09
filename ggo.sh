@@ -279,6 +279,6 @@ case "$1" in
         ;;
 	*)
 		printf "Usage: $0 {start|stop|restart|update|advert}\n"
-		exit 1
+		exit 2
 	;;
 esac
