@@ -7,7 +7,11 @@
 #                                                                   #
 # NOTE: To ensure that this script functions properly,              #
 #       please make sure GNU Screen is installed.                   #
-#                                                                   #
+#								    #
+#	Also, if you're running Linux instead of *BSD then          #
+#       you will need to change /usr/local/bin/bash to              #
+#	/bin/bash                                                   #
+#								    #
 #####################################################################
 
 #### IN-GAME SETTINGS ####
