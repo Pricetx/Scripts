@@ -74,8 +74,8 @@ BACKUPLOCATION_1="/home/ggo/srcds/orangebox/hl2/scripts/game_sounds_manifest.txt
 BACKUP_2="maplist.txt"
 BACKUPLOCATION_2="/home/ggo/srcds/orangebox/hl2mp/maplist.txt"
 
-#BACKUP_3="valve.rc"
-#BACKUPLOCATION_3="/home/ggo/srcds/orangebox/hl2mp/valve.rc"
+BACKUP_3="valve.rc"
+BACKUPLOCATION_3="/home/ggo/srcds/orangebox/hl2mp/valve.rc"
 
 
 #######################################################################
@@ -116,7 +116,7 @@ UPDATECMD="${SCREENCMD} ${UPDATEBIN} ${UPDATEARGS}"
 cd "$DIR"
 
 startGGO() {
-  export RDTSC_FREQUENCY='${RTDSC}'
+  	export RDTSC_FREQUENCY='${RTDSC}'
 	echo "Starting Server."
 	${STARTCMD}
 	sleep 1
