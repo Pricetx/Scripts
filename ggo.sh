@@ -79,7 +79,7 @@ BACKUP_2="maplist.txt"
 BACKUPLOCATION_2="/home/ggo/srcds/orangebox/hl2mp/maplist.txt"
 
 BACKUP_3="valve.rc"
-BACKUPLOCATION_3="/home/ggo/srcds/orangebox/hl2mp/valve.rc"
+BACKUPLOCATION_3="/home/ggo/srcds/orangebox/hl2mp/cfg/valve.rc"
 
 
 #######################################################################
