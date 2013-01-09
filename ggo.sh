@@ -241,8 +241,33 @@ case "$1" in
 			updateGGONotRunning
 		fi
 	;;
+	advert)
+		if [[ `screen -ls |grep $NAME` ]]; then
+			sendCommand "say Visitourwebsite: www.gravitygunonly.com"
+			sleep 180
+			sendCommand "say [NOTICE] Bored of this map? type rtv in the chatbox."
+			sleep 180
+			sendCommand "say [NOTICE] The admins are: Pricetx, A-Lizzard-With-A-Fez"
+			sleep 180
+			sendCommand "say [NOTICE] View our stats page at www.gravitygunonly.com"
+			sleep 180
+			sendCommand "say [NOTICE] Suggest a map at www.gravitygunonly.com"
+			sleep 180
+			sendCommand "say [NOTICE] type motd to see a list of helpful commands."
+			sleep 180
+			sendCommand "say [NOTICE] View our forum thread at www.gravitygunonly.com"
+			sleep 180
+			sendCommand "say [NOTICE] type top10 to see the leaderboards."
+			sleep 180
+			sendCommand "say [NOTICE] Visit www.gravitygunonly.com for demo files of every match."
+			sleep 180
+			sendCommand "say [NOTICE] type motd to see the Message of the Day."
+		else
+			 printf "${INFO} is not running.\n"
+		fi
+	;;
 	*)
-		printf "Usage: $0 {start|stop|restart|update}\n"
+		printf "Usage: $0 {start|stop|restart|update|advert}\n"
 		exit 1
 	;;
 esac
