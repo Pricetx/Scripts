@@ -161,7 +161,7 @@ restartGGO() {
 updateGGORunning() {
 	cd "$UPDATEDIR"
 	echo "Giving 10 second countdown warning."
-	fo i in {10..1}
+	for i in {10..1}
         do
                 echo -n "$i "
                 sendCommand "say The server is updating in $i seconds."
