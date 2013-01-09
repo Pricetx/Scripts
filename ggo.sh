@@ -91,7 +91,7 @@ PID=$(pgrep -u $(whoami) -f "session=${NAME}" )
 INFO="${GAME} screen session '${NAME}'"
 
 SCREENCMD="screen -dmS ${NAME}"
-ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} +map ${MAP} -maxplayers ${MAXPLAYERS} -debug"
+ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} +map ${MAP} -maxplayers ${MAXPLAYERS}"
 STARTCMD="${SCREENCMD} ${BIN} ${ARGS}"
 
 
