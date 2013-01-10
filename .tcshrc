@@ -1,0 +1,16 @@
+setenv EDITOR nano
+setenv TERM xterm-color
+set prompt="%B%n%b@%m:%U%/%u%#"
+set prompt2="%R?"
+set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
+setenv  BLOCKSIZE       K
+#set autocorrect
+set complete=enhance
+set correct=cmd
+set autolist
+
+alias ls ls -GF
+alias dir ls -alGF
+alias pico nano -Siw
+chmod a+rw `tty`
+alias ggo 'screen -x gravitygunonly'
