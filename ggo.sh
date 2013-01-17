@@ -32,7 +32,7 @@ PORT="27015"
 
 # If you have multiple IPs and want to bind to one, enter it here.
 # Otherwise, leave blank.
-IP=""
+IP="188.165.140.64"
 
 
 #######################################################################
@@ -110,7 +110,7 @@ PID=$(pgrep -u $(whoami) -f "session=${NAME}" )
 INFO="${GAME} screen session '${NAME}'"
 
 SCREENCMD="screen -dmS ${NAME}"
-ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} +map ${MAP} +ip ${IP}"
+ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} -ip ${IP} +map ${MAP}"
 STARTCMD="${SCREENCMD} ${BIN} ${ARGS}"
 
 
