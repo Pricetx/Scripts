@@ -1,0 +1,8 @@
+include "/usr/local/share/nano/c.nanorc"
+include "/usr/local/share/nano/makefile.nanorc"
+include "/usr/local/share/nano/html.nanorc"
+include "/usr/local/share/nano/php.nanorc"
+include "/usr/local/share/nano/man.nanorc"
+include "/usr/local/share/nano/perl.nanorc"
+include "/usr/local/share/nano/java.nanorc"
+include "/usr/local/share/nano/sh.nanorc"
