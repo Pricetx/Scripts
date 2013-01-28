@@ -147,7 +147,6 @@ stopGGO() {
         do
                 echo -n "$i "
                 sendCommand "say The server is stopping in $i seconds."
-                sendCommand "say Thankyou for playing on GravityGunOnly!"
                 sleep 1
         done
 	echo "Stopping Server."
@@ -164,7 +163,6 @@ restartGGO() {
 	do
 		echo -n "$i "
 		sendCommand "say The server is restarting in $i seconds."
-		sendCommand "say Thankyou for your patience."
 		sleep 1
 	done
         echo "Stopping Server."
@@ -183,7 +181,6 @@ updateGGORunning() {
         do
                 echo -n "$i "
                 sendCommand "say The server is updating in $i seconds."
-                sendCommand "say Thankyou for your patience."
                 sleep 1
         done
 	echo "Stopping Server."
