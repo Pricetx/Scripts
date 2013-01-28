@@ -10,6 +10,6 @@ set autolist
 
 alias ls ls -GF
 alias dir ls -alGF
-alias nano nano -Siw
+alias nano nano -Sw
 chmod a+rw `tty`
 alias ggo 'screen -x gravitygunonly'
