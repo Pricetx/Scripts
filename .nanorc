@@ -6,3 +6,5 @@ include "/usr/local/share/nano/man.nanorc"
 include "/usr/local/share/nano/perl.nanorc"
 include "/usr/local/share/nano/java.nanorc"
 include "/usr/local/share/nano/sh.nanorc"
+
+set tabspace 4
