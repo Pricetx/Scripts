@@ -32,7 +32,7 @@ PORT="27015"
 
 # If you have multiple IPs and want to bind to one, enter it here.
 # Otherwise, leave blank.
-IP="188.165.140.64"
+IP=""
 
 
 #######################################################################
