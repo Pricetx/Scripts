@@ -1,17 +1,14 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
 #####################################################################
-# Gravity Gun Only bash script                                      #
+# Gravity Gun Only SteamCMD bash script                             #
 # developed by Pricetx.                                             #
 #                                                                   #
 #####################################################################
 #                                                                   #
 # NOTE: To ensure that this script functions properly,              #
-#       please make sure GNU Screen is installed.                   #
-#								    #
-#	Also, if you're running Linux instead of *BSD then          #
-#       you will need to change /usr/local/bin/bash to              #
-#	/bin/bash                                                   #
+#       please make sure GNU Screen and Bourne Again Shell	    #
+#	installed. 						    #
 #								    #
 #####################################################################
 
@@ -63,9 +60,9 @@ NAME="gravitygunonly"
 # This should NOT usually be changed.
 BIN="./srcds_run"
 
-# Set this to the location of your steam binary.
+# Set this to the location of your steamcmd script.
 # This should NOT usually be changed.
-UPDATEBIN="./steam.sh"
+UPDATEBIN="./steamcmd.sh"
 
 # If you get a message  on startup asking you to set the RSTDC_FREQUENCY
 # Then set that value here, otherwise, leave the field blank.
