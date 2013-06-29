@@ -10,7 +10,6 @@ set autolist
 
 alias ls ls -GF
 alias dir ls -halGF
-alias nano nano -Sw
 chmod a+rw `tty`
 alias ggo 'screen -x gravitygunonly'
 alias update 'sudo freebsd-update fetch install && sudo portsnap fetch update && sudo portupgrade -ai'
