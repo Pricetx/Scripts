@@ -1,4 +1,5 @@
 ### FreeBSD version ###
+[[ $- != *i* ]] && return
 setenv EDITOR nano
 setenv LSCOLORS Ex
 setenv TERM xterm-color
@@ -15,6 +16,7 @@ alias dir ls -halGF
 chmod a+rw `tty`
 
 ### Linux version ###
+[[ $- != *i* ]] && return
 setenv EDITOR nano
 set prompt="%B%n%b@%m:%U%/%u%#"
 set prompt2="%R?"
