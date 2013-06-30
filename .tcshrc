@@ -1,9 +1,8 @@
 setenv EDITOR nano
-setenv TERM xterm-color
+setenv LSCOLORS Ex
 set prompt="%B%n%b@%m:%U%/%u%#"
 set prompt2="%R?"
 set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
-setenv  BLOCKSIZE       K
 set complete=enhance
 set correct=cmd
 set autolist
