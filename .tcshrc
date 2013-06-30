@@ -1,3 +1,4 @@
+### FreeBSD version ###
 setenv EDITOR nano
 setenv LSCOLORS Ex
 set prompt="%B%n%b@%m:%U%/%u%#"
@@ -11,5 +12,17 @@ bindkey "\e[3~" delete-char
 alias ls ls -GF
 alias dir ls -halGF
 chmod a+rw `tty`
-alias ggo 'screen -x gravitygunonly'
-alias update 'sudo freebsd-update fetch install && sudo portsnap fetch update && sudo portupgrade -ai'
+
+### Linux version ###
+setenv EDITOR nano
+set prompt="%B%n%b@%m:%U%/%u%#"
+set prompt2="%R?"
+set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
+set complete=enhance
+set correct=cmd
+set autolist
+bindkey "\e[3~" delete-char
+
+alias ls ls --color -F
+alias dir ls --color -halF
+chmod a+rw `tty`
