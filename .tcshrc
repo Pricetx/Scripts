@@ -1,6 +1,7 @@
 ### FreeBSD version ###
 setenv EDITOR nano
 setenv LSCOLORS Ex
+setenv TERM xterm-color
 set prompt="%B%n%b@%m:%U%/%u%#"
 set prompt2="%R?"
 set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
