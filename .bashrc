@@ -1,5 +1,6 @@
 ### FreeBSD Version
 
+[[ $- != *i* ]] && return
 export EDITOR="nano"
 export LSCOLORS="Ex"
 PS1='\[\e[1m\]\u\[\e[m\]@\h:\[\e[4m\]${PWD}\[\e[m\]>'
@@ -10,6 +11,7 @@ chmod a+rw `tty`
 
 ### Linux Version
 
+[[ $- != *i* ]] && return
 export EDITOR="nano"
 PS1='\[\e[1m\]\u\[\e[m\]@\h:\[\e[4m\]${PWD}\[\e[m\]>'
 shopt -s cdspell
