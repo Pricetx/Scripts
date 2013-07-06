@@ -12,6 +12,8 @@ set correct=cmd
 set autolist
 bindkey "\e[3~" delete-char
 bindkey "\e[2~" overwrite-mode
+if ( -x /usr/games/fortune ) /usr/games/fortune freebsd-tips
+
 
 alias ls ls -GF
 alias dir ls -halGF
