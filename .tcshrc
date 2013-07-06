@@ -11,6 +11,7 @@ set complete=enhance
 set correct=cmd
 set autolist
 bindkey "\e[3~" delete-char
+bindkey "\e[2~" overwrite-mode
 
 alias ls ls -GF
 alias dir ls -halGF
@@ -26,6 +27,7 @@ set complete=enhance
 set correct=cmd
 set autolist
 bindkey "\e[3~" delete-char
+bindkey "\e[2~" overwrite-mode
 
 alias ls ls --color -F
 alias dir ls --color -halF
