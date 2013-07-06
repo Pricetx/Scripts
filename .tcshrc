@@ -3,6 +3,7 @@ if (! $?prompt) exit
 setenv EDITOR nano
 setenv LSCOLORS Ex
 setenv TERM xterm-color
+setenv NCURSES_NO_UTF8_ACS 1
 set prompt="%B%n%b@%m:%U%/%u%#"
 set prompt2="%R?"
 set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
