@@ -32,6 +32,7 @@ set correct=cmd
 set autolist
 bindkey "\e[3~" delete-char
 bindkey "\e[2~" overwrite-mode
+if ( -e /usr/share/games/fortunes/debian-hints ) /usr/games/fortune debian-hints
 
 alias ls ls --color -F
 alias dir ls --color -halF
