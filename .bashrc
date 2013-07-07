@@ -2,6 +2,7 @@
 
 [[ $- != *i* ]] && return
 export EDITOR="nano"
+export LC_ALL="en_GB.UTF-8"
 export LSCOLORS="Ex"
 PS1='\[\e[1m\]\u\[\e[m\]@\h:\[\e[4m\]${PWD}\[\e[m\]>'
 shopt -s cdspell
@@ -15,6 +16,7 @@ alias dir='ls -halGF'
 
 [[ $- != *i* ]] && return
 export EDITOR="nano"
+export LC_ALL="en_GB.UTF-8"
 PS1='\[\e[1m\]\u\[\e[m\]@\h:\[\e[4m\]${PWD}\[\e[m\]>'
 shopt -s cdspell
 
