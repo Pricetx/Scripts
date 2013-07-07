@@ -1,6 +1,7 @@
 ### FreeBSD version ###
 if (! $?prompt) exit
 setenv EDITOR nano
+setenv LC_ALL en_GB.UTF-8
 setenv LSCOLORS Ex
 setenv TERM xterm-color
 setenv NCURSES_NO_UTF8_ACS 1
@@ -22,6 +23,7 @@ chmod a+rw `tty`
 ### Linux version ###
 if (! $?prompt) exit
 setenv EDITOR nano
+setenv LC_ALL en_GB.UTF-8
 set prompt="%B%n%b@%m:%U%/%u%#"
 set prompt2="%R?"
 set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
