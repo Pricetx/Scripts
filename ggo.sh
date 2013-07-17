@@ -30,8 +30,7 @@ IP=""
 # Set this to the location of your game folder
 DIR="/home/ggo/gravitygunonly"
 
-# Set this to the location to the folder up from your orangebox
-# folder, i.e the folder that contains hldsupdatetool.bin
+# Set this to your SteamCMD folder (the one that contains steamcmd.sh)
 UPDATEDIR="/home/ggo/steamcmd"
 
 # This variable sets the name of the GNU Screen session.
