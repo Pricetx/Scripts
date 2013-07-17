@@ -46,9 +46,9 @@ DEMODIR="/home/ggo/web/hl2mp/demos/"
 # is 1 week.
 DEMOAGE="10080"
 
-# If you get a message  on startup asking you to set the RSTDC_FREQUENCY
+# If you get a message  on startup asking you to set the RDTSC_FREQUENCY
 # Then set that value here, otherwise, leave the field blank.
-RTDSC=""
+RDTSC=""
 
 
 ######################################################################
@@ -83,7 +83,7 @@ PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
 
 startServer() {
 	cd "$DIR"
-  	export RDTSC_FREQUENCY='${RTDSC}'
+  	export RDTSC_FREQUENCY='${RDTSC}'
 	echo "Starting Server."
 	${STARTCMD}
 }
