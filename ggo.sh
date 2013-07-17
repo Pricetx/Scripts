@@ -81,15 +81,15 @@ UPDATECMD="${SCREENCMD} ./steamcmd.sh ${UPDATEARGS}"
 # and even then it might just be FreeBSD that needs this.
 PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
 
-cd "$DIR"
-
 startServer() {
+	cd "$DIR"
   	export RDTSC_FREQUENCY='${RTDSC}'
 	echo "Starting Server."
 	${STARTCMD}
 }
 
 stopServer() {
+	cd "$DIR"
 	echo "Giving 10 second countdown warning."
 	for i in {10..1}
 	do
@@ -106,6 +106,7 @@ stopServer() {
 }
 
 restartServer() {
+	cd "$DIR"
     echo "Giving 10 second countdown warning."
 	for i in {10..1}
 	do
