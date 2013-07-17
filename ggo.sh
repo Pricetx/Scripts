@@ -1,25 +1,21 @@
 #!/usr/bin/env bash
-PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
 #####################################################################
-# Gravity Gun Only SteamCMD bash script                             #
+# Gravity Gun Only bash script                                      #
 # developed by Pricetx.                                             #
-#                                                                   #
-#####################################################################
-#                                                                   #
-# NOTE: To ensure that this script functions properly,              #
-#       please make sure GNU Screen and Bourne Again Shell	    #
-#	installed. 						    #
-#								    #
 #####################################################################
 
 ####    INGAME SETTINGS    ####
 #### EDIT THESE PARAMETERS ####
 
-# Sets the game to Half Life 2: Deathmatch, in normal use, DO NOT CHANGE THIS.
+# The game's name, as srcds calls it, e.g hl2mp
 GAME="hl2mp"
 
+# Set this to the AppID for the game you're using
+# List can be found here: https://developer.valvesoftware.com/wiki/Steam_Application_IDs
+APPID="232370"
+
 # Set this to the map you want the server to load on launch.
-MAP="dm_ob_killbox_gravity_gun"
+MAP="dm_overwatch"
 
 # Set this to the maximum number of slots you want the server to have.
 MAXPLAYERS="16"
@@ -31,53 +27,32 @@ PORT="27015"
 # Otherwise, leave blank.
 IP=""
 
-
-#######################################################################
-
-
-####    SYSTEM SETTINGS    ####
-#### EDIT THESE PARAMETERS ####
-
-# Set this to the AppID for the game you're using
-# List can be found here: https://developer.valvesoftware.com/wiki/Steam_Application_IDs
-APPID="232370"
-
-# Set this to the location of your orangebox folder.
+# Set this to the location of your game folder
 DIR="/home/ggo/gravitygunonly"
 
 # Set this to the location to the folder up from your orangebox
 # folder, i.e the folder that contains hldsupdatetool.bin
 UPDATEDIR="/home/ggo/steamcmd"
 
-# Set this to the RELATIVE path for the installation, from the UPDATEDIR
-RELATIVEUPDATEDIR="../gravitygunonly/"
-
 # This variable sets the name of the GNU Screen session.
 # Make sure that this is NOT the same as your UNIX username.
 NAME="gravitygunonly"
-
-# Set this to the location of your srcds_run script.
-# This should NOT usually be changed.
-BIN="./srcds_run"
-
-# Set this to the location of your steamcmd script.
-# This should NOT usually be changed.
-UPDATEBIN="./steamcmd.sh"
-
-# If you get a message  on startup asking you to set the RSTDC_FREQUENCY
-# Then set that value here, otherwise, leave the field blank.
-RTDSC=""
 
 # *OPTIONAL* If you have a web server on your server, enter a directory
 # To store demo files for public download.
 DEMODIR="/home/ggo/web/hl2mp/demos/"
 
 # *OPTIONAL* If you are using a web server as shown above, enter the age
-# in minutes you want to store demo files on your web server, e.g 10080 
+# in minutes you want to store demo files on your web server, e.g 10080
 # is 1 week.
 DEMOAGE="10080"
 
-#######################################################################
+# If you get a message  on startup asking you to set the RSTDC_FREQUENCY
+# Then set that value here, otherwise, leave the field blank.
+RTDSC=""
+
+
+######################################################################
 
 
 ####    STARTUP PARAMETERS    ####
@@ -89,19 +64,12 @@ PID=$(pgrep -u $(whoami) -f "session=${NAME}" )
 # Prints out the name of the running server.
 INFO="${GAME} screen session '${NAME}'"
 
-SCREENCMD="screen -dmS ${NAME}"
-ARGS="-Dsession=${NAME} -console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} -ip ${IP} +map ${MAP}"
-STARTCMD="${SCREENCMD} ${BIN} ${ARGS}"
+SCREENCMD="screen -mS ${NAME}"
+ARGS="-console -game ${GAME} -port ${PORT} -maxplayers ${MAXPLAYERS} -ip ${IP} +map ${MAP}"
+STARTCMD="${SCREENCMD} ./srcds_run ${ARGS}"
 
-
-#######################################################################
-
-
-####     UPDATE PARAMETERS    ####
-#### DO NOT EDIT THIS SECTION ####
-
-UPDATEARGS="+login anonymous +force_install_dir ${RELATIVEUPDATEDIR} +app_update \"${APPID} -beta prerelease\" validate +quit"
-UPDATECMD="${SCREENCMD} ${UPDATEBIN} ${UPDATEARGS}"
+UPDATEARGS="+login anonymous +force_install_dir ${DIR} +app_update ${APPID} -beta prerelease validate +quit"
+UPDATECMD="${SCREENCMD} ./steamcmd.sh ${UPDATEARGS}"
 
 
 #######################################################################
@@ -110,147 +78,163 @@ UPDATECMD="${SCREENCMD} ${UPDATEBIN} ${UPDATEARGS}"
 ####      SCRIPT ACTIONS      ####
 #### DO NOT EDIT THIS SECTION ####
 
+# the PATH line is only needed for if you run demo as a cronjob
+# and even then it might just be FreeBSD that needs this.
+PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
 
 cd "$DIR"
 
-startGGO() {
+startServer() {
   	export RDTSC_FREQUENCY='${RTDSC}'
 	echo "Starting Server."
 	${STARTCMD}
-	sleep 1
-	screen -x ${NAME}
 }
 
-stopGGO() {
-        echo "Giving 10 second countdown warning."
-        for i in {10..1}
-        do
-                echo -n "$i "
-                sendCommand "say The server is stopping in $i seconds."
-                sleep 1
-        done
+stopServer() {
+	echo "Giving 10 second countdown warning."
+	for i in {10..1}
+	do
+		echo -n "$i "
+    	sendCommand "say The server is stopping in $i seconds."
+        sleep 1
+    done
 	echo "Stopping Server."
 	sendCommand quit
-        while [[ `screen -ls |grep $NAME` ]]; do
-                sleep 1
-        done
+    while [[ `screen -ls |grep $NAME` ]]; do
+      	sleep 1
+    done
 	echo "Server stopped."
 }
 
-restartGGO() {
-        echo "Giving 10 second countdown warning."
+restartServer() {
+    echo "Giving 10 second countdown warning."
 	for i in {10..1}
 	do
 		echo -n "$i "
 		sendCommand "say The server is restarting in $i seconds."
 		sleep 1
 	done
-        echo "Stopping Server."
+    echo "Stopping Server."
 	sendCommand quit
 	while [[ `screen -ls |grep $NAME` ]]; do
 		sleep 1
 	done
 	sleep 2
-	startGGO
+	startServer
 }
 
-updateGGORunning() {
+updateServerRunning() {
 	cd "$UPDATEDIR"
 	echo "Giving 10 second countdown warning."
 	for i in {10..1}
-        do
-        	echo -n "$i "
-                sendCommand "say The server is updating in $i seconds."
-                sleep 1
-        done
+    do
+    	echo -n "$i "
+    	sendCommand "say The server is updating in $i seconds."
+    	sleep 1
+    done
 	echo "Stopping Server."
 	sendCommand quit
-        while [[ `screen -ls |grep $NAME` ]]; do
-                sleep 1
-        done
+    while [[ `screen -ls |grep $NAME` ]]; do
+    	sleep 1
+    done
 	sleep 2
 	${UPDATECMD}
-	sleep 2
-	screen -x ${NAME}
-        while [[ `screen -ls |grep $NAME` ]]; do
-                sleep 1
-        done
+    while [[ `screen -ls |grep $NAME` ]]; do
+        sleep 1
+    done
 	cd "$DIR"
-	startGGO
+	startServer
 }
 
-updateGGONotRunning() {
+updateServerNotRunning() {
 	echo "Updating Server."
 	cd $UPDATEDIR
 	${UPDATECMD}
-	sleep 1
-	screen -x ${NAME}
-        while [[ `screen -ls |grep $NAME` ]]; do
-                sleep 1
-        done
+    while [[ `screen -ls |grep $NAME` ]]; do
+        sleep 1
+    done
 	echo "Update complete."
+	cd "$DIR"
 }
 
 demo() {
 	echo "Moving old demos to web server."
 	#Moves all .dem files to the web server if they're older than 2 hours (to avoid cutting a demo short)
-	find ${DIR}/hl2mp/ -iname "*.dem" -mmin +120 -exec chmod 664 {} \; -exec mv {} ${DEMODIR} \;
+	find ${DIR}/${GAME}/ -iname "*.dem" -mmin +120 -exec chmod 664 {} \; -exec mv {} ${DEMODIR} \;
 
 	#Delete all archived demo files older than period specified
 	find ${DEMODIR} -name "*.dem" -mmin +${DEMOAGE} -exec rm {} \;
 	echo "Move complete."
 }
 
-
 sendCommand() {
 	local command=$(printf "$@\r")
 	sh -c "screen -p0 -S "${NAME}" -X stuff \"${command}\""
 }
 
+####################################################################
+
 case "$1" in
 	start)
-		if [[ `screen -ls |grep $NAME` ]]; then
-			printf "${INFO} already started with the following process ids \n${PID}\n"
+		if [[ ! `screen -ls |grep $NAME` ]]; then
+			if [[ `type screen` ]]; then
+				if [[ -e $DIR ]]; then
+					if [[ -e $DIR/$GAME/maps/$MAP.bsp ]]; then
+						echo "Starting ${INFO}"
+						startServer
+					else
+						printf "$MAP is not in the maps folder, please choose a new map\n"
+					fi
+				else
+					printf "${DIR} does not exist, please edit the DIR variable in the script\n"
+				fi
+			else
+				printf "GNU Screen is not installed, please install it before continuing\n"
+			fi
 		else
-			echo "Starting ${INFO}"
-			startGGO
+            printf "Screen name ${NAME} is already in use\n"
+            printf "Please either stop it or choose a new name\n"
 		fi
 	;;
 	stop)
 		if [[ `screen -ls |grep $NAME` ]]; then
-			stopGGO
+			stopServer
 		else
-                        printf "${INFO} is not running.\n"
+        	printf "${INFO} is not running, not stopping\n"
 		fi
 	;;
 	restart)
-                if [[ `screen -ls |grep $NAME` ]]; then
-			restartGGO
+        if [[ `screen -ls |grep $NAME` ]]; then
+			restartServer
 		else
 			printf "${INFO} is not running. Not restarting.\n"
 		fi
 	;;
 	update)
-                if [[ `screen -ls |grep $NAME` ]]; then
-			printf "${INFO} is running. Warning, then stopping to update.\n"
-			updateGGORunning
+        if [[ `type screen` ]]; then
+			if [[ -e $UPDATEDIR ]]; then
+				if [[ `screen -ls |grep $NAME` ]]; then
+       				printf "${INFO} is running. Warning, then stopping to update.\n"
+           			updateServerRunning
+				else
+		            printf "${INFO} is not running. Updating anyway.\n"
+		            updateServerNotRunning
+				fi
+			else
+				printf "$UPDATEDIR doesn't exist. Please edit UPDATEDIR in the script\n"
+			fi
 		else
-			printf "${INFO} is not running. Updating anyway.\n"
-			updateGGONotRunning
+			printf "GNU Screen is not installed, please install it before continuing\n"
 		fi
 	;;
-        advert)
-                if [[ `screen -ls |grep $NAME` ]]; then
-                        advert
-                else
-                        printf "${INFO} is not running.\n"
-                fi
-        ;;
 	demo)
-		demo
+		if [[ -e $DEMODIR ]]; then
+			demo
+		else
+			printf "$DEMODIR does not exist, please edit DEMODIR in the script"
 	;;
 	*)
-		printf "Usage: $0 {start|stop|restart|update|advert|demo}\n"
+		printf "Usage: $0 {start|stop|restart|update|demo}\n"
 		exit 2
 	;;
 esac
