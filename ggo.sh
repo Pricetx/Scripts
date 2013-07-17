@@ -232,6 +232,7 @@ case "$1" in
 			demo
 		else
 			printf "$DEMODIR does not exist, please edit DEMODIR in the script"
+		fi
 	;;
 	*)
 		printf "Usage: $0 {start|stop|restart|update|demo}\n"
