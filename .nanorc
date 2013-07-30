@@ -1,6 +1,7 @@
 set tabsize 4
 set nowrap
 set smooth
+set const
 
 include "/usr/local/share/nano/asm.nanorc"
 include "/usr/local/share/nano/awk.nanorc"
