@@ -117,31 +117,30 @@ STATUS=""
 # does the game folder $DIR exist
 # has an $RDTSC value been given
 doStart() {
-	if [ ! "$(command -v tmux)" ]; then
-		echo "ERROR: tmux could not be found, is it installed?"
-		exit 1
-	fi
+        if [ ! "$(command -v tmux)" ]; then
+                echo "ERROR: tmux could not be found, is it installed?"
+                exit 1
+        fi
 
-	if [ "$TMUXPID" ]; then
-		if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
-			echo "ERROR: A tmux session with the name $NAME already exists"
-			exit 1
-		fi
-	fi
+        if [ "$TMUXPID" ]; then
+                if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
+                        echo "ERROR: A tmux session with the name $NAME already exists"
+                        exit 1
+                fi
+        fi
 
-	if [ ! -d $DIR ]; then
-		echo "ERROR: Could not find $DIR. Is the path correct?"
-		exit 1
-	fi
+        if [ ! -d $DIR ]; then
+                echo "ERROR: Could not find $DIR. Is the path correct?"
+                exit 1
+        fi
 
-	if [ $RDTSC ]; then
-		export RDTSC_FREQUENCY=$RDTSC
-		echo "DEBUG: an RDTSC value has been provided"
-	fi
+        if [ $RDTSC ]; then
+                export RDTSC_FREQUENCY=$RDTSC
+                echo "DEBUG: an RDTSC value has been provided"
+        fi
 
-	echo "Starting server"
-	tmux new-session -d -s $NAME "$DIR/$BIN $ARGS"
-	tmux attach-session -t $NAME
+        echo "Starting server"
+        tmux new-session -s $NAME "$DIR/$BIN $ARGS"
 }
 
 
@@ -150,81 +149,98 @@ doStart() {
 # Checks if a tmux session with the correct name exists
 doStop() {
     if [ ! "$TMUXPID" ]; then
-		echo "ERROR: tmux is not running"
-		exit 1
+                echo "ERROR: tmux is not running"
+                exit 1
     fi
 
-	if [ ! -n "$(tmux list-sessions | grep $NAME)" ]; then
-		echo "ERROR: A tmux session with the name $NAME couldn't be found"
-		exit 1
-	fi
+        if [ ! -n "$(tmux list-sessions | grep $NAME)" ]; then
+                echo "ERROR: A tmux session with the name $NAME couldn't be found"
+                exit 1
+        fi
 
-	echo "Giving 10 second countdown warning."
+        echo "Giving 10 second countdown warning."
 
-	for i in 10 9 8 7 6 5 4 3 2 1 ; do
-		printf "%s " "$i"
-		tmux send-keys -t $NAME "say The server is $STATUS in $i seconds." ENTER
-		sleep 1
-	done
-	echo "Stopping Server"
-	tmux send-keys -t $NAME "quit" ENTER
+        for i in 10 9 8 7 6 5 4 3 2 1 ; do
+                printf "%s " "$i"
+                tmux send-keys -t $NAME "say The server is $STATUS in $i seconds." ENTER
+                sleep 1
+        done
+        echo "Stopping Server"
+        tmux send-keys -t $NAME "quit" ENTER
 
-    while [ -n "$(tmux list-sessions | grep $NAME)" ]; do
-		sleep 1
-	done
+        while [ -n "$(tmux list-sessions | grep $NAME)" ]; do
+                sleep 1
+        done
 }
 
 # Restarts the server. For checks, see stop and start functions.
 doRestart() {
-	doStop
-	doStart
+        doStop
+        doStart
 }
 
 # Updates the server. Before doing so, it runs the following checks:
+# Checks for the existance of the SteamCMD folder $UPDATEDIR
+# Checks for the existance of the SteamCMD script $UPDATEBIN
 # Checks to see if the server is running. If so, stop the server,
 # and start it again aftwards.
 doUpdate() {
-	local wasRunning="false"
-    if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
-        echo "$NAME is currently running. Stopping before updating."
-		wasRunning="true"
-		doStop
-    fi
+        local wasRunning="false"
 
-	echo "Updating server"
-	tmux new-session -d -s $NAME "$UPDATEDIR/$UPDATEBIN $UPDATEARGS"
-	tmux attach-session -t $NAME
-    while [ -n "$(tmux list-sessions | grep $NAME)" ]; do
-        sleep 1
-    done
-	if [ $wasRunning = "true" ]; then
-		doStart
-		echo lets all start!
-	fi
+        if [ ! -d $UPDATEDIR ]; then
+                echo "ERROR: $UPDATEDIR doesn't exist. Is it the correct path?"
+                exit 1
+        fi
+
+        if [ -e $UPDATEBIN ]; then
+                echo "ERROR: $UPDATEBIN doesn't exist. Is the path correct?"
+                exit 1
+        fi
+
+        if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
+                echo "$NAME is currently running. Stopping before updating."
+                wasRunning="true"
+                doStop
+        fi
+
+        echo "Updating server"
+        tmux new-session -s $NAME "$UPDATEDIR/$UPDATEBIN $UPDATEARGS"
+        while [ -n "$(tmux list-sessions | grep $NAME)" ]; do
+                sleep 1
+        done
+        if [ $wasRunning = "true" ]; then
+                doStart
+        fi
 }
 
+# If a web server is set up, this function can move SourceTV demos
+# to a web folder for users to download.
 doDemo() {
-    echo "Moving old demos to web server."
-    #Moves all .dem files to the web server if they're older than 2 hours (to avoid cutting a demo short)
-    find ${DIR}/${GAME}/ -iname "*.dem" -mmin +120 -exec chmod 664 {} \; -exec mv {} ${DEMODIR} \;
+        echo "Moving old demos to web server."
+        # Moves all .dem files to the web server if they're older than 2 hours (to avoid cutting a demo short)
+        find ${DIR}/${GAME}/ -iname "*.dem" -mmin +120 -exec chmod 664 {} \; -exec mv {} ${DEMODIR} \;
 
-    #Delete all archived demo files older than period specified
-    find ${DEMODIR} -name "*.dem" -mmin +${DEMOAGE} -exec rm {} \;
-    echo "Move complete."
+        # Delete all archived demo files older than period specified
+        find ${DEMODIR} -name "*.dem" -mmin +${DEMOAGE} -exec rm {} \;
+        echo "Move complete."
 }
 
+# Attaches the user's shell into the tmux session.
 doConsole() {
         tmux attach-session -t $NAME
 }
 
+# Returns some basic information about the server
 doStatus() {
-	echo "$INFO"
-	if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
-		echo "Status: running"
-	else
-		echo "Status: not running"
-	fi
+        echo "$INFO"
+        if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
+                echo "Status: running"
+        else
+                echo "Status: not running"
+        fi
 }
+
+
 
 # COMMAND INTEPRETER
 # DO NOT EDIT THIS SECTION
@@ -232,31 +248,31 @@ doStatus() {
 
 
 case $1 in
-	start)
-		doStart
-	;;
-	stop)
-		STATUS="stopping"
-		doStop "$2"
-	;;
-	restart)
-		STATUS="restarting"
-		doRestart
-	;;
-	update)
-		doUpdate
-	;;
-	demo)
-		doDemo
-	;;
-	console)
-		doConsole
-	;;
-	status)
-		doStatus
-	;;
-	*)
-		printf "%s" "Usage: $0 {start|stop|restart|update|demo|console|status}\n"
-		exit 2
-	;;
+        start)
+                doStart
+        ;;
+        stop)
+                STATUS="stopping"
+                doStop "$2"
+        ;;
+        restart)
+                STATUS="restarting"
+                doRestart
+        ;;
+        update)
+                doUpdate
+        ;;
+        demo)
+                doDemo
+        ;;
+        console)
+                doConsole
+        ;;
+        status)
+                doStatus
+        ;;
+        *)
+                printf "%s" "Usage: $0 {start|stop|restart|update|demo|console|status}\n"
+                exit 2
+        ;;
 esac
