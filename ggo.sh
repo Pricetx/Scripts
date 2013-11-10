@@ -84,7 +84,7 @@ RDTSC=""
 
 
 # Determines whether there is a tmux server running
-TMUXPID=$(pgrep -u "$(whoami)" -f "tmux: server" )
+TMUXPID=$(pgrep -u "$(whoami)" -f "tmux" )
 
 # Prints the game and tmux session
 INFO="Game: $GAME | tmux session: $NAME"
