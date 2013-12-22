@@ -42,10 +42,10 @@
 APPID="261140"
 
 # location of the game folder
-DIR="/home/jcmp/jcmp/"
+DIR="/home/steam/jcmp/"
 
 # The location of your SteamCMD binary
-UPDATEDIR="/home/jcmp/steamcmd/"
+UPDATEDIR="/home/steam/steamcmd/"
 
 # The name given to the tmux session
 NAME="jc2mp"
