@@ -37,10 +37,6 @@
 #
 # NOTE: REQUIRES TMUX TO BE INSTALLED
 
-# The SteamCMD name for the game. A list of names can be found here:
-# https://developer.valvesoftware.com/wiki/Game_Name_Abbreviations
-GAME=""
-
 # The AppID of the game you're using. A list can be found here:
 # https://developer.valvesoftware.com/wiki/Steam_Application_IDs
 APPID="261140"
@@ -64,11 +60,11 @@ NAME="jc2mp"
 # Determines whether there is a tmux server running
 TMUXPID=$(pgrep -u "$(whoami)" -f "tmux" )
 
-# Prints the game and tmux session
-INFO="Game: $GAME | tmux session: $NAME"
-
 # The name of the main binary
 BIN="Jcmp-Server"
+
+# Prints the game and tmux session
+INFO="Game: $BIN | tmux session: $NAME"
 
 # The name of the main SteamCMD script file
 UPDATEBIN="steamcmd.sh"
@@ -77,7 +73,7 @@ UPDATEBIN="steamcmd.sh"
 ARGS=""
 
 # Server update arguments
-UPDATEARGS="+login anonymous +force_install_dir $DIR +app_update $APPID validate +q                                                                                                                                                          uit"
+UPDATEARGS="+login anonymous +force_install_dir $DIR +app_update $APPID validate +quit"
 
 # Is "stopping" or "restarting" based on command given
 STATUS=""
