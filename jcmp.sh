@@ -28,9 +28,9 @@
 
 # jcmp.sh
 #
-# Server managing script for SteamCMD servers, using tmux. Includes commands
+# Server managing script for JC-MP servers, using tmux. Includes commands
 # to start, stop and restart the server, as well as being able to update the
-# server, and handle transferring SourceTV demo files to a web directory.
+# server, and access the server console
 #
 # Comments, suggestions, bug reports please to:
 # Jonathan Price <jonathan@jonathanprice.org>
