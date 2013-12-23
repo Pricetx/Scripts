@@ -69,9 +69,6 @@ INFO="Game: $BIN | tmux session: $NAME"
 # The name of the main SteamCMD script file
 UPDATEBIN="steamcmd.sh"
 
-# Server start arguments
-ARGS=""
-
 # Server update arguments
 UPDATEARGS="+login anonymous +force_install_dir $DIR +app_update $APPID validate +quit"
 
@@ -130,7 +127,7 @@ doStop() {
 
         echo "Giving 10 second countdown warning."
 
-        for i in 10 9 8 7 6 5 4 3 2 1 ; do
+        for i in 10 9 8 7 6 5 4 3 2 1; do
                 printf "%s " "$i"
                 tmux send-keys -t $NAME "say The server is $STATUS in $i seconds." ENTER
                 sleep 1
@@ -211,7 +208,7 @@ case $1 in
         ;;
         stop)
                 STATUS="stopping"
-                doStop "$2"
+                doStop
         ;;
         restart)
                 STATUS="restarting"
