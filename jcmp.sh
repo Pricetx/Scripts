@@ -98,7 +98,7 @@ doStart() {
 
         if [ "$TMUXPID" ]; then
                 if [ -n "$(tmux list-sessions | grep $NAME)" ]; then
-                        echo "ERROR: A tmux session with the name $NAME already exi                                                                                                                                                          sts"
+                        echo "ERROR: A tmux session with the name $NAME already exists"
                         exit 1
                 fi
         fi
@@ -132,7 +132,7 @@ doStop() {
 
         for i in 10 9 8 7 6 5 4 3 2 1 ; do
                 printf "%s " "$i"
-                tmux send-keys -t $NAME "say The server is $STATUS in $i seconds."                                                                                                                                                           ENTER
+                tmux send-keys -t $NAME "say The server is $STATUS in $i seconds." ENTER
                 sleep 1
         done
         echo "Stopping Server"
