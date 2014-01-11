@@ -28,9 +28,9 @@
 
 # jcmp.sh
 #
-# Server managing script for JC-MP servers, using tmux. Includes commands
+# Server managing script for SteamCMD servers, using tmux. Includes commands
 # to start, stop and restart the server, as well as being able to update the
-# server, and access the server console
+# server, and handle transferring SourceTV demo files to a web directory.
 #
 # Comments, suggestions, bug reports please to:
 # Jonathan Price <jonathan@jonathanprice.org>
@@ -42,10 +42,10 @@
 APPID="261140"
 
 # location of the game folder
-DIR="/home/steam/jcmp/"
+DIR="/home/jcmp/jcmp/"
 
 # The location of your SteamCMD binary
-UPDATEDIR="/home/steam/steamcmd/"
+UPDATEDIR="/home/jcmp/steamcmd/"
 
 # The name given to the tmux session
 NAME="jc2mp"
@@ -68,6 +68,9 @@ INFO="Game: $BIN | tmux session: $NAME"
 
 # The name of the main SteamCMD script file
 UPDATEBIN="steamcmd.sh"
+
+# Server start arguments
+ARGS=""
 
 # Server update arguments
 UPDATEARGS="+login anonymous +force_install_dir $DIR +app_update $APPID validate +quit"
@@ -106,8 +109,9 @@ doStart() {
         fi
 
         echo "Starting server"
-        cd $DIR
-        tmux new-session -s $NAME "./$BIN $ARGS"
+                cd $DIR
+        tmux new-session -d -s $NAME "./$BIN $ARGS"
+                tmux attach-session -t $NAME
 }
 
 
@@ -127,9 +131,9 @@ doStop() {
 
         echo "Giving 10 second countdown warning."
 
-        for i in 10 9 8 7 6 5 4 3 2 1; do
+        for i in 10 9 8 7 6 5 4 3 2 1 ; do
                 printf "%s " "$i"
-                tmux send-keys -t $NAME "say The server is $STATUS in $i seconds." ENTER
+                tmux send-keys -t $NAME "say The server is $STATUS in $i seconds."                                                                                                                                                           ENTER
                 sleep 1
         done
         echo "Stopping Server"
@@ -208,7 +212,7 @@ case $1 in
         ;;
         stop)
                 STATUS="stopping"
-                doStop
+                doStop "$2"
         ;;
         restart)
                 STATUS="restarting"
