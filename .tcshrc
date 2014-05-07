@@ -30,6 +30,8 @@ set prompt3="CORRECT> %B%R%b (yes|no|edit)?"
 set complete=enhance
 set correct=cmd
 set autolist
+set savehist=(100 merge)
+set autorehash
 bindkey "\e[3~" delete-char
 bindkey "\e[2~" overwrite-mode
 if ( -e /usr/share/games/fortunes/debian-hints ) /usr/games/fortune debian-hints
