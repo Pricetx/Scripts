@@ -127,7 +127,7 @@ done
 
 # Encrypt tar file
 #log "Encrypting backup"
-/usr/bin/openssl smime -encrypt -aes256 -binary -in ${TARFILE} -out ${TARFILE}.enc -outform DER ${CRTFILE}
+/usr/bin/openssl smime -encrypt -aes256 -binary -in ${TARFILE} -out ${TARFILE}.enc -outform DER -stream ${CRTFILE}
 log "Encryption completed"
 
 # Delete unencrypted tar
