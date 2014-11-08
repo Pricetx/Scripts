@@ -1,4 +1,4 @@
-gravitygunonly
+Scripts
 ==============
 
-Files for use with the GravityGunOnly Half-Life 2: Deathmatch server
+This repository contains miscellaneous scripts and configuration files of mine which are not large enough to warrant their own repositories.
