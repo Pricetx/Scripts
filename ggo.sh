@@ -1,7 +1,7 @@
 #!/bin/sh
 #-
 #
-# Copyright (c) 2013 Jonathan Price <jonathan@jonathanprice.org>
+# Copyright (c) 2013 Jonathan Price <jonathan@jonathanprice.uk>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
