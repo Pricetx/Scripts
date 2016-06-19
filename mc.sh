@@ -66,12 +66,6 @@ PWD=$(pwd)
 # Is "stopping" or "restarting" based on command given
 STATUS=""
 
-# Sets the active server's settings
-NAME=""
-DIR=""
-BIN=""
-MEM=""
-
 
 
 # FUNCTIONS
