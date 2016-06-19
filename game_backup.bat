@@ -23,6 +23,7 @@ SET SteamDir="D:\Steam"
 :: Arma 3
 :: Burnout Paradise
 :: Kerbal Space Program
+:: Half-Life 2
 
 :: Final Fantasy XIV Online
 IF EXIST "%UserProfile%\Documents\My Games\FINAL FANTASY XIV - A Realm Reborn" (
@@ -137,6 +138,13 @@ IF EXIST "%SteamDir%\SteamApps\common\Kerbal Space Program" (
 	IF NOT EXIST "%Backupdir%\Steam\SteamApps\common\Kerbal Space Program" mkdir "%Backupdir%\Steam\SteamApps\common\Kerbal Space Program"
 	xcopy /vys "%SteamDir%\SteamApps\common\Kerbal Space Program\saves" "%Backupdir%\Steam\SteamApps\common\Kerbal Space Program\saves\"
 	xcopy /vy "%SteamDir%\SteamApps\common\Kerbal Space Program\settings.cfg" "%Backupdir%\Steam\SteamApps\common\Kerbal Space Program\"
+)
+
+:: Half-Life 2
+IF EXIST "%SteamDir%\SteamApps\common\Half-Life 2" (
+	IF NOT EXIST "%Backupdir%\Steam\SteamApps\common\Half-Life 2" mkdir "%Backupdir%\Steam\SteamApps\common\Half-Life 2"
+	xcopy /vys "%SteamDir%\SteamApps\common\Half-Life 2\hl2\cfg" "%Backupdir%\Steam\SteamApps\common\Half-Life 2\hl2\cfg\"
+	xcopy /vys "%SteamDir%\SteamApps\common\Half-Life 2\hl2\save" "%Backupdir%\Steam\SteamApps\common\Half-Life 2\hl2\save\"
 )
 
 PAUSE
