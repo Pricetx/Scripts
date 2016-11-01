@@ -24,6 +24,7 @@ SET SteamDir="D:\Steam"
 :: Burnout Paradise
 :: Kerbal Space Program
 :: Half-Life 2
+:: X-Plane 10
 
 :: Final Fantasy XIV Online
 IF EXIST "%UserProfile%\Documents\My Games\FINAL FANTASY XIV - A Realm Reborn" (
@@ -145,6 +146,12 @@ IF EXIST "%SteamDir%\SteamApps\common\Half-Life 2" (
 	IF NOT EXIST "%Backupdir%\Steam\SteamApps\common\Half-Life 2" mkdir "%Backupdir%\Steam\SteamApps\common\Half-Life 2"
 	xcopy /vys "%SteamDir%\SteamApps\common\Half-Life 2\hl2\cfg" "%Backupdir%\Steam\SteamApps\common\Half-Life 2\hl2\cfg\"
 	xcopy /vys "%SteamDir%\SteamApps\common\Half-Life 2\hl2\save" "%Backupdir%\Steam\SteamApps\common\Half-Life 2\hl2\save\"
+)
+
+:: X-Plane 10
+IF EXIST "%SteamDir%\SteamApps\common\X-Plane 10" (
+	IF NOT EXIST "%Backupdir%\Steam\SteamApps\common\X-Plane 10\Output\preferences" mkdir "%Backupdir%\Steam\SteamApps\common\X-Plane 10\Output\preferences"
+	xcopy /vys "%SteamDir%\SteamApps\common\X-Plane 10\Output\preferences" "%BackupDir%\Steam\SteamApps\common\X-Plane 10\Output\preferences"
 )
 
 PAUSE
