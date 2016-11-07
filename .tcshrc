@@ -15,12 +15,9 @@ bindkey "\e[1~" beginning-of-line
 bindkey "\e[2~" overwrite-mode
 bindkey "\e[3~" delete-char
 bindkey "\e[4~" end-of-line
-if ( -x /usr/games/fortune ) /usr/games/fortune freebsd-tips
-
 
 alias ls ls -GF
 alias dir ls -halGF
-chmod a+rw `tty`
 
 ### Linux version ###
 if (! $?prompt) exit
