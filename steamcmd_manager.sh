@@ -41,7 +41,7 @@ GAME=""
 
 # The AppID of the game you're using. A list can be found here:
 # https://developer.valvesoftware.com/wiki/Steam_Application_IDs
-# Popular AppID's - CSGO: 740, TF2: 440, CS Source: 232330, L4D2: 562 (Linux), 561 (Windows)
+# Popular AppID's - CSGO: 740, TF2: 232250, CS Source: 232330, L4D2: 562 (Linux), 561 (Windows)
 APPID=""
 
 # The map to load on launch.
